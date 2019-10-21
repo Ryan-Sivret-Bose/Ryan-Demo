@@ -31,7 +31,33 @@ def search(fname):
             print(line)
 
 #Ask for contact information, final verification and entry into file.
+
 def addContact():
+    contactParams = ['First Name', 'Last Name', 'Street', 'City', 'State', 'Zip']
+    contact = ""
+    for index,value in enumerate(contactParams):
+        contact = input(f"{value}?")
+        contacts += contact + ","
+    print(contacts)
+    choice = input("Is this the correct contact information Y/N?")
+    #try:
+        #if choice == 'Y':
+            #fh = open(fname,'a')
+            #fh.write(contact + '\n')
+            #fh.close
+        #elif choice == 'N':
+            #addContact()
+        #elif choice != 'N' or 'Y':
+            #quit()
+    #except:   
+        #print('Sorry, Did not recognize that entry, please try again' )
+        #choice = input('1 - Return to the Main Menu, 2 - Return to add contact: ')
+        #if choice == '1':
+            #Menu()
+        #elif choice == '2':
+            #addContact()
+
+def addContact1():
     name = input("First Name? ")
     contact = "placeholder"
     contact = name + ","
@@ -76,7 +102,7 @@ def Menu():
             Menu()
         elif choice == '3':
             addContact()
-            Menu()
+            #Menu()
         #elif choice == '4':
         elif choice == '5':
             print("All Done!")
@@ -84,6 +110,6 @@ def Menu():
             quit()
     except:
         print("Sorry, Did not recognize that entry, please try again")
-        Menu()
+        #Menu()
 
 Menu()
