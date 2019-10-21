@@ -2,12 +2,13 @@
 
 fname = input('Hello, Welcome, What is the name of your address book? ')+".csv"
 
+
 def readData(fname):
     fh = open(fname)
     for line in fh:
         print(line)
     fh.close
-#Print contents of the address book
+
 def readAddressBook(fname):
     fh = open(fname,"r")
     file_contents = fh.read()
@@ -18,8 +19,8 @@ def writeData(data):
     fh = open(fname,'w')
     f.write(str(data))
 
-#Find for search term and print the line from the file
 def search(fname):
+    #Find for search term and print the line from the file
     fh = open(fname, 'r')
     choice = input('Enter in a piece of information about this person: ')
     searchlines = fh.readlines()
@@ -28,60 +29,81 @@ def search(fname):
         if choice in line:
             print(line)
 
-#Ask for contact information, final verification and entry into file.
-def addContact():
-    name = input("First Name? ")
-    contact = "placeholder"
-    contact = name + ","
-    lname = input('Last Name? ')
-    contact = contact + lname + ","
-    street = input("What is their street address? ")
-    contact = contact + street + ","
-    city = input("What city/town do they live in? ")
-    contact = contact + city + ","
-    state = input("What state do they live in? ")
-    contact = contact + state + ","
-    zip1 = input("What is zipcode of where they live? ")
-    contact = contact + zip1 
-    print(contact)
+def addNewContact():
+    #Ask for contact information, then asks final user verification before entry into file. 
+    #Could change this to get from the .csv file
+    contactParams = ['First Name', 'Last Name', 'Street', 'City', 'State', 'Zip']
+    contacts = ''
+    contacts = createContact(contactParams)
+    enterContact(confirmContact(contacts),contacts)
+    postContactMenuSelection()
+
+def createContact(contactList):
+    #Creates list comma seperated string based on user input.
+    contacts = ""
+    for value in contactList:
+        contact = input(f"{value}?")
+        contacts += contact + ","
+    return contacts
+
+def confirmContact(contactInfo): 
+    #Prints contact info and asks if it correct or not. Returns boolean. 
+    print(contactInfo)
     choice = input("Is this the correct contact information Y/N?")
-    try:
-        if choice == 'Y':
-            fh = open(fname,'a')
-            fh.write(contact + '\n')
-            fh.close
-        elif choice == 'N':
-            addContact()
-        elif choice != 'N' or 'Y':
-            quit()
-    except:   
-        print('Sorry, Did not recognize that entry, please try again' )
-        choice = input('1 - Return to the Main Menu, 2 - Return to add contact: ')
+    if choice.upper() == 'Y':
+        return True
+    elif choice.upper() == 'N':
+        return False
+    elif choice.upper() != 'N' or 'Y':
+        print("Did not understand your response. Please try again")
+        enterContact(confirmContact(contactInfo),contactInfo)
+
+def enterContact(boo,contactInfo):
+    #Enters contact information if it is correct. Reruns addNewContact if value is false.
+    if boo == True:
+        fh = open(fname,'a')
+        fh.write(contactInfo + '\n')
+        fh.close
+        print("Contact has been added!")
+    if boo == False:
+        addNewContact()
+
+def postContactMenuSelection():
+    #Post selection menu options after completing addNewContact()
+        choice = input("What would you like to do next? Enter 1 to return to Main Menu, Enter 2 to enter another contact: ")
         if choice == '1':
             Menu()
         elif choice == '2':
-            addContact()
+            addNewContact()  
+        elif choice != '1' or '2':
+            postContactMenuSelection()
+
+def wrongContact():
+    #User did not enter in correct command, asking if want to return to Main Menu or addNewContact
+    print('Sorry, Did not recognize that entry, please try again' )
+    choice = input('1 - Return to the Main Menu, 2 - Return to add contact: ')
+    if choice == '1':
+        Menu()
+    elif choice == '2':
+        addNewContact()
 
 def Menu():
     #Choice of adress book and Selection of Task
     choice = input('Enter 1 to look at your Contacts, Enter 2 to Search for a Contact, Enter 3 to Add a Contact, Enter 4 to Delete a Contact, Enter 5 to Exit: ')
-    try:
-        if choice == '1':
-            readAddressBook(fname)
-            Menu()
-        elif choice == '2':
-            search(fname)
-            Menu()
-        elif choice == '3':
-            addContact()
-            Menu()
-        #elif choice == '4':
-        elif choice == '5':
-            print("All Done!")
-        elif choice != '1' or '2' or '3' or '4':
-            quit()
-    except:
-        print("Sorry, Did not recognize that entry, please try again")
+    if choice == '1':
+        readAddressBook(fname)
         Menu()
+    elif choice == '2':
+        search(fname)
+        Menu()
+    elif choice == '3':
+        addNewContact()
+    #elif choice == '4':
+    elif choice == '5':
+        print("All Done!")
+    elif choice != '1' or '2' or '3' or '4':
+        quit()
+        #print("Sorry, Did not recognize that entry, please try again")
+        #Menu()
 
 Menu()
