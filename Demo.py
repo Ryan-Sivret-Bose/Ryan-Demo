@@ -1,7 +1,5 @@
 
 
-fname = input('Hello, Welcome, What is the name of your address book? ')+".csv"
-
 
 def readData(fname):
     fh = open(fname)
@@ -87,7 +85,14 @@ def wrongContact():
     elif choice == '2':
         addNewContact()
 
+def selectAddressBook():
+        fname = input('Hello, Welcome, What is the name of your address book? ')+".csv"
+
+
+
 def Menu():
+    #Choose address book and return variable to use - Should be able to run again to choose address book. 
+    fname = input('Hello, Welcome, What is the name of your address book? ')+".csv"
     #Choice of adress book and Selection of Task
     choice = input('Enter 1 to look at your Contacts, Enter 2 to Search for a Contact, Enter 3 to Add a Contact, Enter 4 to Delete a Contact, Enter 5 to Exit: ')
     if choice == '1':
