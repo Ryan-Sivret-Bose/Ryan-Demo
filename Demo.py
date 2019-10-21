@@ -33,8 +33,9 @@ def addNewContact():
     #Ask for contact information, then asks final user verification before entry into file. 
     #Could change this to get from the .csv file
     contactParams = ['First Name', 'Last Name', 'Street', 'City', 'State', 'Zip']
-    contacts = ""
-    enterContact(confirmContact(createContact(contactParams),contacts),contacts)
+    contacts = ''
+    contacts = createContact(contactParams)
+    enterContact(confirmContact(contacts),contacts)
     postContactMenuSelection()
 
 def createContact(contactList):
@@ -43,9 +44,9 @@ def createContact(contactList):
     for value in contactList:
         contact = input(f"{value}?")
         contacts += contact + ","
-    return contacts   
+    return contacts
 
-def confirmContact(contactInfo,contacts): 
+def confirmContact(contactInfo): 
     #Prints contact info and asks if it correct or not. Returns boolean. 
     print(contactInfo)
     choice = input("Is this the correct contact information Y/N?")
@@ -55,7 +56,7 @@ def confirmContact(contactInfo,contacts):
         return False
     elif choice.upper() != 'N' or 'Y':
         print("Did not understand your response. Please try again")
-        enterContact(confirmContact(contactInfo,contacts),contacts)
+        enterContact(confirmContact(contactInfo),contactInfo)
 
 def enterContact(boo,contactInfo):
     #Enters contact information if it is correct. Reruns addNewContact if value is false.
@@ -76,19 +77,6 @@ def postContactMenuSelection():
             addNewContact()  
         elif choice != '1' or '2':
             postContactMenuSelection()
-
-
-
-#def 
-    #  if choice.upper() == 'Y':
-    #     fh = open(fname,'a')
-    #     fh.write(contactInfo + '\n')
-    #     fh.close
-    #     print("Contact has been added!")
-    # elif choice.upper() == 'N':
-    #     addNewContact()
-    # elif choice.upper() != 'N' or 'Y':
-    #     wrongContact()
 
 def wrongContact():
     #User did not enter in correct command, asking if want to return to Main Menu or addNewContact
