@@ -46,7 +46,6 @@ def createContact(contactList):
 
 def confirmContact(contactInfo): 
     #Prints contact info and asks if it correct or not. Returns boolean.
-    retValue =  
     print(contactInfo)
     choice = input("Is this the correct contact information Y/N?")
     if choice.upper() == 'Y':
