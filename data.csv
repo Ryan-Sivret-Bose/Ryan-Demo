@@ -1,8 +1,2 @@
-First Name,Last Name,Street,City,State ,Zip
-Ryan,Sivret,157 Shriley Road,Lancaster ,MA,1523
-Catie,Sivret,157 Shirley Road,Lancaster ,MA,1523
-William,Sivret,37 Laws Lane ,Stow,MA,1775
-Bob,Williams,187 Tower Drive,Andover,MA,1283
-Ryan,Sivret,157 Shirley Road,Lancaster,MA,1523
-Ryan,Sivret,157 Shirley Road,Lancaster,MA,1523
-Ryan,Sivret,157 Shirley Road,Lancaster,MA,1523,
+Name,Age,Street,City,State ,Zip
+Ryan Sivret,28,157 Shirley Road ,Lancaster ,MA,1523
